@@ -1,7 +1,6 @@
 package jvm.bytecode.decompiler.attributeinfo;
 
 import jvm.bytecode.decompiler.DataInputStreamReader;
-
 import java.io.IOException;
 
 public class ExceptionTable {

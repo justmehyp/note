@@ -5,7 +5,6 @@ import jvm.bytecode.decompiler.cpinfo.CpInfo;
 import jvm.bytecode.decompiler.cpinfo.CpInfo_Class;
 import jvm.bytecode.decompiler.cpinfo.CpInfo_UTF8;
 
-import java.lang.reflect.Modifier;
 
 public class ClassFile {
 

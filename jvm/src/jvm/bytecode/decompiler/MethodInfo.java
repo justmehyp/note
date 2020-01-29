@@ -1,7 +1,6 @@
 package jvm.bytecode.decompiler;
 
 import jvm.bytecode.decompiler.attributeinfo.AttributeInfo;
-
 import java.io.IOException;
 
 public class MethodInfo {

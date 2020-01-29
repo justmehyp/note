@@ -1,6 +1,5 @@
 package jvm.bytecode.decompiler.cpinfo;
 
-import jvm.bytecode.decompiler.ClassFileParser;
 import jvm.bytecode.decompiler.DataInputStreamReader;
 
 import java.io.IOException;
