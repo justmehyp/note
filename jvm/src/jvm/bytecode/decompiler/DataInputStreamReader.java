@@ -23,10 +23,6 @@ public class DataInputStreamReader implements Closeable {
         return dis.readInt();
     }
 
-    public long u8() throws IOException {
-        return dis.readLong();
-    }
-
     public byte[] u1Array(int count) throws IOException {
         byte[] result = new byte[count];
         for (int i = 0; i < count; i++) {

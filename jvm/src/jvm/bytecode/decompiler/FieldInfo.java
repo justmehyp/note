@@ -16,13 +16,15 @@ public class FieldInfo {
         fieldInfo.nameIndex = reader.u2();
         fieldInfo.descriptorIndex = reader.u2();
         fieldInfo.attributeCount = reader.u2();
-        if (fieldInfo.attributeCount != 0) {
-            fieldInfo.attributes = buildAttributeInfos(reader, fieldInfo.attributeCount);
-        }
+        fieldInfo.attributes = buildAttributeInfos(reader, fieldInfo.attributeCount);
         return fieldInfo;
     }
 
     private static AttributeInfo[] buildAttributeInfos(DataInputStreamReader reader, short count) throws IOException {
+        if (count == 0) {
+            return new AttributeInfo[0];
+        }
+
         int icount = NumberUtil.toUnsignedShort(count);
         AttributeInfo[] attributeInfos = new AttributeInfo[icount];
         for (int i = 0; i < icount; i++) {
