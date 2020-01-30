@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+// todo 泛型
 public class Decompiler {
     private String classFilePath;
 
