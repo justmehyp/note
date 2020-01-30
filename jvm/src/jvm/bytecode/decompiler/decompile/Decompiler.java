@@ -271,6 +271,8 @@ public class Decompiler {
     }
 
     //- ACC_PUBLIC     0X0001
+    //- ACC_PRIVATE    0X0002
+    //- ACC_PROTECTED  0X0004
     private String determineAccessLevel(short accessFlags) {
         if ((accessFlags & 0X0001) != 0) {
             return "public";
