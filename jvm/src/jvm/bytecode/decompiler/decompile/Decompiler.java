@@ -279,7 +279,7 @@ public class Decompiler {
             return "private";
         }
         else if((accessFlags & 0X0004) != 0) {
-            return "protect";
+            return "protected";
         }
         else {
 //            throw new RuntimeException("Unknown Access Level: [" + accessFlags + "]");
