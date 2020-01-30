@@ -148,7 +148,7 @@ public class Decompiler {
         method.returnType = getSimpleName(toBinaryName(returnType));
         method.name = getUtf8(cpInfo, methodInfo.nameIndex);
         method.params = determineParams(methodInfo, cpInfo);
-//        method.exceptions = ;
+//        method.exceptions = ; // todo
 //        method.statements = ;
         return method;
     }
