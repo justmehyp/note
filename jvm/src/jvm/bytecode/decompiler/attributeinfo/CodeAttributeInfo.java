@@ -19,21 +19,21 @@ public class CodeAttributeInfo extends AttributeInfo {
     public AttributeInfo[] attributes;
 
     public static CodeAttributeInfo from(AttributeInfo attributeInfo) {
-        try {
-            CodeAttributeInfo codeAttributeInfo = new CodeAttributeInfo();
-            codeAttributeInfo.attributeNameIndex = attributeInfo.attributeNameIndex;
-            codeAttributeInfo.attributeLength = attributeInfo.attributeLength;
+        try (DataInputStreamReader reader = new DataInputStreamReader(new DataInputStream(new ByteArrayInputStream(attributeInfo.data)))) {
+            CodeAttributeInfo info = new CodeAttributeInfo();
+            info.attributeNameIndex = attributeInfo.attributeNameIndex;
+            info.attributeLength = attributeInfo.attributeLength;
+            info.data = attributeInfo.data;
 
-            DataInputStreamReader reader = new DataInputStreamReader(new DataInputStream(new ByteArrayInputStream(attributeInfo.data)));
-            codeAttributeInfo.maxStack = reader.u2();
-            codeAttributeInfo.maxLocals = reader.u2();
-            codeAttributeInfo.codeLength = reader.u4();
-            codeAttributeInfo.code = reader.u1Array(codeAttributeInfo.codeLength);
-            codeAttributeInfo.exceptionTableLength = reader.u2();
-            codeAttributeInfo.exceptionTables = buildExceptionTables(reader, codeAttributeInfo.exceptionTableLength);
-            codeAttributeInfo.attributeCount = reader.u2();
-            codeAttributeInfo.attributes = buildAttributes(reader, codeAttributeInfo.attributeCount);
-            return codeAttributeInfo;
+            info.maxStack = reader.u2();
+            info.maxLocals = reader.u2();
+            info.codeLength = reader.u4();
+            info.code = reader.u1Array(info.codeLength);
+            info.exceptionTableLength = reader.u2();
+            info.exceptionTables = buildExceptionTables(reader, info.exceptionTableLength);
+            info.attributeCount = reader.u2();
+            info.attributes = buildAttributes(reader, info.attributeCount);
+            return info;
         } catch (Exception e) {
             throw new RuntimeException("Malformed CodeAttributeInfo", e);
         }
