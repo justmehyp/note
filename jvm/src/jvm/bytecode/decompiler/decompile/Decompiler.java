@@ -6,6 +6,8 @@ import jvm.bytecode.decompiler.cpinfo.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Decompiler {
     private String classFilePath;
@@ -85,7 +87,7 @@ public class Decompiler {
         return null;
     }
 
-    private String toBinaryName(String name) {
+    public static String toBinaryName(String name) {
         if ("Z".equals(name)) {
             return "boolean";
         }
@@ -159,24 +161,63 @@ public class Decompiler {
         if ("".equals(params)) {
             return new String[0];
         }
-        String[] paramArr = params.split(",");
-        String[] result = new String[paramArr.length];
+        String[] paramTypeArr = splitParamTypeArr(params);
+        String[] result = new String[paramTypeArr.length];
         String[] locals = determineLocals(methodInfo, cpInfo);
         int startIndex = -1;
         if (locals != null) {
             startIndex = "this".equals(locals[0]) ? 1 : 0;
         }
 
-        for (int i = 0; i < paramArr.length; i++) {
-            String paramType = paramArr[i];
-            String binaryName = toBinaryName(paramType); // todo import
-            result[i] = getSimpleName(binaryName);
+        for (int i = 0; i < paramTypeArr.length; i++) {
+            String paramType = paramTypeArr[i]; // todo import
+            result[i] = getSimpleName(paramType);
             if (locals != null) {
                 result[i] += " " + locals[i + startIndex];
             }
         }
 
         return result;
+    }
+
+    public static String[] splitParamTypeArr(String params) {
+        List<String> result = new ArrayList<String>();
+        int length = params.length();
+        int index = 0;
+        while (index < length) {
+            Object[] paramAndIndex = ate(params, index);
+            result.add((String) paramAndIndex[0]);
+            index = (Integer) paramAndIndex[1];
+        }
+        return result.toArray(new String[0]);
+    }
+
+    private static Object[] ate(String params, int index) {
+        if (params.charAt(index) == 'Z') {
+            return new Object[] {"boolean", index + 1};
+        } else if (params.charAt(index) == 'B') {
+            return new Object[] {"byte", index + 1};
+        } else if (params.charAt(index) == 'S') {
+            return new Object[] {"short", index + 1};
+        } else if (params.charAt(index) == 'C') {
+            return new Object[] {"char", index + 1};
+        } else if (params.charAt(index) == 'I') {
+            return new Object[] {"int", index + 1};
+        } else if (params.charAt(index) == 'J') {
+            return new Object[] {"long", index + 1};
+        } else if (params.charAt(index) == 'F') {
+            return new Object[] {"float", index + 1};
+        } else if (params.charAt(index) == 'D') {
+            return new Object[] {"double", index + 1};
+        } else if (params.charAt(index) == '[') {
+            Object[] paramAndIndex = ate(params, index + 1);
+            return new Object[] {paramAndIndex[0] + "[]", paramAndIndex[1]};
+        } else if(params.charAt(index) == 'L') {
+            int i = params.indexOf(';', index);
+            return new Object[] {toBinaryName(params.substring(index, i + 1)), i + 1};
+        } else {
+            throw new RuntimeException("Unknown Parameter Type: " + params);
+        }
     }
 
     private String[] determineLocals(MethodInfo methodInfo, CpInfo[] cpInfo) {

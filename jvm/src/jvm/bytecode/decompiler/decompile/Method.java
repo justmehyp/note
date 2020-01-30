@@ -98,7 +98,7 @@ public class Method {
             baos.write((firstParam).getBytes(encoding));
             for (int i = 1; i < params.length; i++) {
                 String param = params[i];
-                baos.write((" ," + firstParam).getBytes(encoding));
+                baos.write((", " + param).getBytes(encoding));
             }
         }
     }
