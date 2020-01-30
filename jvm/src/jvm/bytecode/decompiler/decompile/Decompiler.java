@@ -145,6 +145,7 @@ public class Decompiler {
         method.accessLevel = determineAccessLevel(methodInfo.accessFlags);
         method.isStatic = determineIsStatic(methodInfo.accessFlags);
         method.isFinal = determineIsFinal(methodInfo.accessFlags);
+        method.isNative = determineIsNative(methodInfo.accessFlags);
         String descriptor = getUtf8(cpInfo, methodInfo.descriptorIndex);
         String returnType = descriptor.substring(descriptor.lastIndexOf(')') + 1); // todo import
         method.returnType = getSimpleName(toBinaryName(returnType));
@@ -258,6 +259,11 @@ public class Decompiler {
         return (accessFlags & 0X0010) != 0;
     }
 
+    //- ACC_NATIVE     0X0100
+    private boolean determineIsNative(short accessFlags) {
+        return (accessFlags & 0X0100) != 0;
+    }
+
     //- ACC_STATIC     0X0008
     private boolean determineIsStatic(short accessFlags) {
         return (accessFlags & 0X0008) != 0;
@@ -268,8 +274,15 @@ public class Decompiler {
         if ((accessFlags & 0X0001) != 0) {
             return "public";
         }
+        else if((accessFlags & 0X0002) != 0) {
+            return "private";
+        }
+        else if((accessFlags & 0X0004) != 0) {
+            return "protect";
+        }
         else {
-            throw new RuntimeException("Unknown Access Level: [" + accessFlags + "]");
+//            throw new RuntimeException("Unknown Access Level: [" + accessFlags + "]");
+            return "";
         }
     }
 

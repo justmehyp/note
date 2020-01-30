@@ -7,6 +7,7 @@ public class Method {
     public String accessLevel;
     public boolean isStatic;
     public boolean isFinal;
+    public boolean isNative;
     public String returnType;
     public String name;
     public String[] params;
@@ -19,7 +20,7 @@ public class Method {
 
     public void toBytes(ByteArrayOutputStream baos) {
         try {
-            accessLevel(baos); isStatic(baos); isFinal(baos); returnType(baos); name(baos);
+            accessLevel(baos); isStatic(baos); isFinal(baos); isNative(baos); returnType(baos); name(baos);
             leftBracket(baos); params(baos); rightBracket(baos); blank(baos); exceptions(baos);
             leftBrace(baos); newLine(baos);
             statements(baos);
@@ -43,11 +44,15 @@ public class Method {
     }
 
     private void leftBracket(ByteArrayOutputStream baos) throws IOException {
-        baos.write(("(").getBytes(encoding)); // (
+        if (!"<clinit>".equals(name)) {
+            baos.write(("(").getBytes(encoding)); // (
+        }
     }
 
     private void rightBracket(ByteArrayOutputStream baos) throws IOException {
-        baos.write((")").getBytes(encoding)); // )
+        if (!"<clinit>".equals(name)) {
+            baos.write((")").getBytes(encoding)); // )
+        }
     }
 
     private void blank(ByteArrayOutputStream baos) throws IOException {
@@ -60,7 +65,7 @@ public class Method {
 
     //========
     private void accessLevel(ByteArrayOutputStream baos) throws IOException {
-        if (accessLevel != null) {
+        if (accessLevel != null && !accessLevel.isEmpty()) {
             baos.write((accessLevel + " ").getBytes(encoding));
         }
     }
@@ -77,8 +82,14 @@ public class Method {
         }
     }
 
+    private void isNative(ByteArrayOutputStream baos) throws IOException {
+        if (isNative) {
+            baos.write(("native ").getBytes(encoding));
+        }
+    }
+
     private void returnType(ByteArrayOutputStream baos) throws IOException {
-        if (!"<init>".equals(name)) {
+        if (!"<init>".equals(name) && !"<clinit>".equals(name)) {
             baos.write((returnType + " ").getBytes(encoding));
         }
     }
@@ -86,8 +97,9 @@ public class Method {
     private void name(ByteArrayOutputStream baos) throws IOException {
         if ("<init>".equals(name)) {
             baos.write((sourceFile.name).getBytes(encoding));
-        }
-        else {
+        } else if ("<clinit>".equals(name)) {
+
+        } else {
             baos.write((name).getBytes(encoding));
         }
     }
