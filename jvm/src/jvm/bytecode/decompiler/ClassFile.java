@@ -153,6 +153,9 @@ public class ClassFile {
     }
 
     private String getClassName(int nameIndex) {
+        if (nameIndex == 0) {
+            return "";
+        }
         CpInfo_Class clazz = (CpInfo_Class) this.cpInfo[nameIndex];
         CpInfo_UTF8 utf8 = (CpInfo_UTF8) this.cpInfo[clazz.index];
         return new String(utf8.bytes);
