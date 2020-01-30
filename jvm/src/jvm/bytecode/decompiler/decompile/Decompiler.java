@@ -197,9 +197,9 @@ public class Decompiler {
                         if ("LocalVariableTable".equals(attributeName)) {
                             LocalVariableTableAttributeInfo localVariableTable = LocalVariableTableAttributeInfo.from(attributeInfo);
                             String[] result = new String[localVariableTable.localVariableTables.length];
-                            LocalVariableTable[] localVariableTables = localVariableTable.localVariableTables;
+                            LocalVariableTableAttributeInfo.LocalVariableTable[] localVariableTables = localVariableTable.localVariableTables;
                             for (int i = 0; i < localVariableTables.length; i++) {
-                                LocalVariableTable variableTable = localVariableTables[i];
+                                LocalVariableTableAttributeInfo.LocalVariableTable variableTable = localVariableTables[i];
                                 result[i] = getUtf8(cpInfo, variableTable.nameIndex);
                             }
                             return result;
