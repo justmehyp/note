@@ -1,0 +1,30 @@
+
+task sayHello(type: SayHelloTask) {
+    inputFile = file('input.properties')
+    outputFile = file('output.properties')
+}
+
+
+class SayHelloTask extends DefaultTask {
+    @InputFile
+    File inputFile;
+
+    @OutputFile
+    File outputFile;
+
+    {
+        group = "SayHello";
+        description = "A SayHello Task"
+    }
+
+    @TaskAction
+    void doAction() {
+        println "performing sayHello task..."
+        def properties = new Properties()
+        inputFile.withInputStream { is -> properties.load(is) }
+        String hello = properties.getProperty("hello")
+        if(hello != null) {
+            outputFile.withWriter { writer -> writer.write(hello) }
+        }
+    }
+}

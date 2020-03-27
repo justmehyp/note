@@ -1,0 +1,19 @@
+
+
+// 初始化阶段(创建Project实例) -> 配置阶段(为项目或task设置所需的配置) -> 执行阶段
+
+
+println 'before'  // 配置
+
+task hello {
+    println 'hello'  // task 配置
+
+    doLast {
+        println 'hello world'
+    }
+
+    println 'world'  // task 配置
+}
+
+
+println 'after' // 配置

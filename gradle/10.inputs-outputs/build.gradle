@@ -1,0 +1,26 @@
+
+// gradle 通过比较 task 的inputs和outputs来决定task是否最新的
+// 输入可以是一个目录、一个或多个文件、或者是一个属性
+// 输出可以是一个目录、一个或多个文件
+
+ext {
+    hello = readHelloProperty()
+    outputFile = file('output.txt')
+}
+
+String readHelloProperty() {
+    def inputProperties = new Properties()
+    def inputFile = file('input.properties')
+    inputFile.withInputStream { is -> inputProperties.load(is) }
+    return inputProperties.get("hello")
+}
+
+task sayHello {
+    inputs.property('hello', hello)
+    outputs.file(outputFile)
+
+    doLast {
+        outputFile.withWriter { writer -> writer.write(hello) }
+        println 'print value of key: "hello" to output.txt'
+    }
+}

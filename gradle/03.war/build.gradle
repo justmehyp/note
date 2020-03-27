@@ -1,0 +1,15 @@
+apply plugin: 'war'
+
+repositories {
+    jcenter()
+}
+
+
+dependencies {
+    providedCompile "javax.servlet:servlet-api:2.5"
+    runtime "javax.servlet:jstl:1.1.2"
+}
+
+war {
+    from "src/static", "src/static2"
+}

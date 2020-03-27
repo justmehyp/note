@@ -1,0 +1,23 @@
+
+version = new ProjectVersion(1, 2)
+
+class ProjectVersion {
+    int major;
+    int minor;
+
+    ProjectVersion(int major, int minor) {
+        this.major = major;
+        this.minor = minor;
+    }
+
+    @Override
+    String toString() {
+        return "$major-$minor"
+    }
+}
+
+task printVersion {
+    doLast {
+        println "version: $version"
+    }
+}

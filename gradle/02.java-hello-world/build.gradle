@@ -1,0 +1,22 @@
+//apply plugin: 'java'
+apply plugin: 'java-library'
+
+version = 1.0
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'JavaHelloWorld'
+        attributes 'a': 'b'
+    }
+}
+
+buildDir = 'out'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api 'org.apache.commons:commons-lang3:3.1'
+    testImplementation 'log4j:log4j:1.2.17'
+}

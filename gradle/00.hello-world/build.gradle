@@ -1,0 +1,8 @@
+
+task sayHelloWorld {
+    doLast {
+        println 'Hello World!'
+        println "taskName: ${name}"
+        println "projectName: ${project.name}"
+    }
+}

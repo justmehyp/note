@@ -1,0 +1,16 @@
+
+project.ext.key = 'value' // 定义扩展属性
+
+ext {
+    key1 = 'value1'
+}
+
+task printProperties {
+    println key
+    println key1
+    println age
+    println "$username"
+    println "-Pabc=$abc" // -P项目参数
+    println "-Dsys=" + System.getProperty("sys") // -D系统参数
+//    println "$HELLO_GRADLE" // export ORG_GRADLE_PROJECT_HELLO_GRADLE='Hello Gradle'
+}

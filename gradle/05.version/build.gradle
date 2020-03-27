@@ -1,0 +1,18 @@
+
+version = "1.0-RELEASE"
+
+task printVersion(group: "versioning", description: "print version info") {
+    doLast {
+        println "version: $version"
+    }
+}
+
+
+
+printVersion.doFirst {
+    println "======== before ========"
+}
+
+printVersion.doLast {
+    println "======== after ========"
+}
