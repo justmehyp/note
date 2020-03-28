@@ -1,0 +1,5 @@
+import com.hyp.SayHelloTask
+
+task sayHello(type: SayHelloTask) {
+    username = "world"
+}
