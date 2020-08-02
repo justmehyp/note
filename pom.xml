@@ -6,10 +6,18 @@
 
     <groupId>com.hyp.note</groupId>
     <artifactId>note</artifactId>
+    <packaging>pom</packaging>
     <version>1.0</version>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 
     <modules>
         <module>jvm</module>
+        <module>idea-plugin-dev</module>
+        <module>my-interpreter</module>
     </modules>
 
 
