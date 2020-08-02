@@ -9,15 +9,22 @@ public class InterpreterTest {
     public static void main(String[] args) throws Exception {
         final LineNumberReader lineNumberReader = new LineNumberReader(new InputStreamReader(System.in));
 
-        String line = "";
-        while (line != null) {
+        while (true) {
             System.out.print(">> ");
-            line = lineNumberReader.readLine();
+            String line = lineNumberReader.readLine();
+
+            line = line.trim();
+            if (line.isEmpty()) {
+                continue;
+            }
+            else if ("exit".equals(line) || "quit".equals(line)) {
+                break;
+            }
 
             final Lexer lexer = new Lexer(line);
             final Parser parser = new Parser(lexer);
             final Interpreter interpreter = new Interpreter(parser);
-            final Object result = interpreter.interpre();
+            final Object result = interpreter.interpret();
             System.out.println(result);
         }
     }

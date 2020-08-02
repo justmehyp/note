@@ -1,10 +1,8 @@
 package interpreter;
 
 
-import parser.AstNode;
-import parser.BinOpNode;
-import parser.IntegerNode;
-import parser.Parser;
+import lexer.TokenType;
+import parser.*;
 
 /**
  * 遍历Parser生成的AST
@@ -17,7 +15,7 @@ public class Interpreter {
         this.parser = parser;
     }
 
-    public Object interpre() {
+    public Object interpret() {
         AstNode ast = parser.parse();
         return visit(ast);
     }
@@ -39,6 +37,18 @@ public class Interpreter {
                     return Integer.parseInt(visit(node.left).toString()) / Integer.parseInt(visit(node.right).toString());
                 default:
                     return null; // todo 未支持的 BinOpNode
+            }
+        }
+        else if (astNode instanceof UnaryOpNode) {
+            UnaryOpNode node = ((UnaryOpNode) astNode);
+            if(node.token.type == TokenType.PLUS) {
+                return visit(node.child);
+            }
+            else if (node.token.type == TokenType.MINUS) {
+                return -Integer.parseInt(visit(node.child).toString());
+            }
+            else {
+                return null; // todo 未支持的 UnaryOpNode
             }
         }
         else {

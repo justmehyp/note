@@ -9,7 +9,7 @@ import lexer.TokenType;
  *
  * expr: term (PLUS|MINUS term)*
  * term: factor (MUL|DIV factor)*
- * factor: INTEGER | LPAREN expr RPAREN
+ * factor: PLUS|MINUS factor | INTEGER | LPAREN expr RPAREN
  *
  * terminal 是一个Token?
  */
@@ -58,7 +58,7 @@ public class Parser {
         return node;
     }
 
-    // factor: INTEGER | LPAREN expr RPAREN
+    // factor: PLUS|MINUS factor | INTEGER | LPAREN expr RPAREN
     private AstNode factor() {
         Token token = currentToken;
         if (token.type == TokenType.INTEGER) {
@@ -70,6 +70,16 @@ public class Parser {
             AstNode node = expr();
             eat(TokenType.RPAREN);
             return node;
+        }
+        else if (token.type == TokenType.PLUS || token.type == TokenType.MINUS) {
+            Token op = currentToken;
+            if (TokenType.PLUS == op.type) {
+                eat(TokenType.PLUS);
+            }
+            else {
+                eat(TokenType.MINUS);
+            }
+            return new UnaryOpNode(op, factor());
         }
         return null;
     }
