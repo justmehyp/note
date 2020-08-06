@@ -1,5 +1,9 @@
 package lexer;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 /**
  * 输入字符流，输出Token
  */
@@ -7,6 +11,12 @@ public class Lexer {
     private String text;
     private int pos = -1;
     private Character currentChar = null;
+
+    private static final Map<String, Token> KEY_WORD_TOKEN_MAP = new HashMap<>();
+    static {
+        KEY_WORD_TOKEN_MAP.put("BEGIN", new Token(TokenType.BEGIN, "BEGIN"));
+        KEY_WORD_TOKEN_MAP.put("END", new Token(TokenType.END, "EN"));
+    }
 
     public Lexer(String text) {
         this.text = text;
@@ -29,27 +39,43 @@ public class Lexer {
                 }
                 if (currentChar == '+') {
                     advance();
-                    return new Token(TokenType.PLUS, "+");
+                    return Token.PLUS;
                 }
                 if (currentChar == '-') {
                     advance();
-                    return new Token(TokenType.MINUS, "-");
+                    return Token.MINUS;
                 }
                 if (currentChar == '*') {
                     advance();
-                    return new Token(TokenType.MUL, "*");
+                    return Token.MUL;
                 }
                 if (currentChar == '/') {
                     advance();
-                    return new Token(TokenType.DIV, "/");
+                    return Token.DIV;
                 }
                 if (currentChar == '(') {
                     advance();
-                    return new Token(TokenType.LPAREN, "(");
+                    return Token.LPAREN;
                 }
                 if (currentChar == ')') {
                     advance();
-                    return new Token(TokenType.RPAREN, ")");
+                    return Token.RPAREN;
+                }
+                if (currentChar == '.') {
+                    advance();
+                    return Token.DOT;
+                }
+                if (currentChar == ';') {
+                    advance();
+                    return Token.SEMI;
+                }
+                if (currentChar == ':' && peekIfExpected('=')) {
+                    advance();
+                    advance();
+                    return Token.ASSIGN;
+                }
+                if (isAlpha(currentChar)) {
+                    return keywordOrID();
                 }
 
                 throw new UnrecognizedTokenException(currentChar);
@@ -58,8 +84,23 @@ public class Lexer {
         return Token.EOF;
     }
 
+    private boolean isAlpha(Character aChar) {
+        return aChar != null && (('A' <= aChar && aChar <= 'Z' ) || ('a' <= aChar && aChar <= 'z'));
+    }
+
     private boolean isDigit(Character aChar) {
         return aChar != null && "0123456789".indexOf(aChar) >= 0;
+    }
+
+    private Token keywordOrID() {
+        StringBuilder sb = new StringBuilder();
+        while (isAlpha(currentChar)) {
+            sb.append((char) currentChar);
+            advance();
+        }
+        final String word = sb.toString();
+        return Optional.ofNullable(KEY_WORD_TOKEN_MAP.get(word))
+                .orElse(new Token(TokenType.ID, word));
     }
 
     private String integer() {
@@ -76,6 +117,10 @@ public class Lexer {
         currentChar = pos >= text.length() ? null : text.charAt(pos);
     }
 
+    private boolean peekIfExpected(char expectedChar) {
+        int peekPos = pos + 1;
+        return peekPos < text.length() && text.charAt(peekPos) == expectedChar;
+    }
 
     private void skipWhiteSpace() {
         while (isWhiteSpace(currentChar)) {

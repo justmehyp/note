@@ -10,6 +10,14 @@ public enum TokenType {
 
     LPAREN,
     RPAREN,
+    SEMI,
+    DOT,
+    ASSIGN,
+
+    BEGIN,
+    END,
+
+    ID,
 
     EOF
 }
