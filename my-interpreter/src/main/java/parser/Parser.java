@@ -57,7 +57,7 @@ public class Parser {
     // compound_statement: BEGIN statement_list END
     private AstNode compound_statement() {
         eat(TokenType.BEGIN);
-        AstNode node = new CompoundStatementNode(statement_list());
+        AstNode node = new CompoundNode(statement_list());
         eat(TokenType.END);
         return node;
     }
