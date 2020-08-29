@@ -6,33 +6,62 @@
 public class DuiChenQianHouZhui {
     /**
      * @param s: a string.
-     * @return: return the values of all the intervals.
+     * @return return the values of all the intervals.
      */
     public long suffixQuery(String s) {
         // write your code here
-        if (s == null) {
-            return 0;
-        }
-        final char[] chars = s.toCharArray();
-        final int len = chars.length;
-        long result = len;
-        for (int i = 2; i <= len; i++) { // 子字符串字符个数
-            for (int j = 0; j <= len - i; j++) {
-                result += doSuffixQuery(chars, j, i);
-            }
-        }
-        return result;
-    }
-
-    private long doSuffixQuery(char[] chars, int start, int count) {
         long result = 0;
-        for (int end = start + count - 1; start < end; start++, end--) {
-            if (chars[start] != chars[end]) {
-                break;
-            } else {
-                result++;
+
+        for (int i = 0; i < s.length(); i++) {
+            // 以i为中心
+            {
+                boolean isHuiWen = true;
+                int count = 0;
+                for (int l = i, r = i; l >= 0 && r < s.length(); l--, r++) {
+                    if (s.charAt(l) == s.charAt(r)) {
+
+                        System.out.println(l + "," + r + ":" + s.substring(l, r+1));
+
+                        count++;
+                        if (isHuiWen) {
+                            result += count * 2 - 1;
+                        }
+                        else {
+                            result += count;
+                        }
+                    }
+                    else {
+                        isHuiWen = false;
+                        count = 0;
+                    }
+                }
+            }
+
+            // 以i、i+1的中间空位为中心
+            {
+                boolean isHuiWen = true;
+                int count = 0;
+                for (int l = i, r = i + 1; l >= 0 && r < s.length(); l--, r++) {
+                    if (s.charAt(l) == s.charAt(r)) {
+
+                        System.out.println(l + "," + r + ":" + s.substring(l, r+1));
+
+                        count++;
+                        if (isHuiWen) {
+                            result += count * 2;
+                        }
+                        else {
+                            result += count;
+                        }
+                    }
+                    else {
+                        isHuiWen = false;
+                        count = 0;
+                    }
+                }
             }
         }
+
         return result;
     }
 }
