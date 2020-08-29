@@ -18,6 +18,9 @@
         <module>jvm</module>
         <module>idea-plugin-dev</module>
         <module>my-interpreter</module>
+        <module>spring-resource</module>
+        <module>spring-request-response-body-advice</module>
+        <module>macth_1</module>
     </modules>
 
 
