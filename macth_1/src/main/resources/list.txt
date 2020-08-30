@@ -2,3 +2,10 @@
 单调栈
 dp
 回文串的 前缀 与 后缀 相同
+超级卡特兰数/大施罗德数，oeis法
+rmq st表
+线段树
+阿贝尔群 和 群论
+逆元: https://www.jianshu.com/p/e9e1c52bf6c9
+  费马小定理（有限制） =》p为素数时，a关于mod p的逆元为a^(p-2)mod p。用快速幂模。
+  扩展欧几里得算法（普遍适用） https://blog.csdn.net/greenary/article/details/79343176
