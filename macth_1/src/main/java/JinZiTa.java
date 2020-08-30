@@ -6,18 +6,19 @@ import java.util.*;
  * 大施罗德数： Fn = Fn-1 + ∑(0<=k<=n-1) Fk * Fk-1-k  前4项为 1 2 6 22
  * 由于这个公式只能用递归，性能不行
  *
- * 超级卡特兰数：
+ * 卡特兰数：前几项为 1 1 3 11，除了第1项，其他项乘以2可得到大施罗德数
  *
  * (n+1)Fn = (6n-3)Fn-1 - (n-2)Fn-2
  *
  * 题目要求结果取模k = 1e9+7,是一个质数1000000007
  * (n+1)Fn%k = (6n-3)Fn-1%k - (n-2)Fn-2%k
  *
- * Fn%k = ( ((6n-3)Fn-1%k - (n-2)Fn-2%k) * 逆元(n+1,k) )%k
+ * Fn%k = ( ((6n-3)Fn-1%k - (n-2)Fn-2%k) * 逆元(n+1) )%k
  *
  * a关于%k的逆元为a^(k-2)%k
  */
 public class JinZiTa {
+    private static final int MOD = 1000000007;
 
     /**
      * @param n: The number of pyramid levels n
@@ -27,48 +28,59 @@ public class JinZiTa {
     public int pyramid(int n, List<Integer> k) {
         // write your code here
 
-        int min = k.stream().min(Integer::compareTo).get();
-
-        Map<String, Long> buff = new HashMap<>();
-        for (int p = n; p >= min; p--) {
-            long a = doPyramid(p, p, n, buff);
-            buff.put(p + "-" + p, a);
-        }
-
         long result = 0;
+
         for (Integer i : k) {
-            result = (result + buff.get(i + "-" + i)) % 1000000007;
+            long s = S(n - i + 1);
+            result = (result + s) % MOD;
         }
 
         return (int) result;
     }
 
-    private long doPyramid(int x, int y, int end, Map<String, Long> buff) {
-        String key = x + "-" + y;
-
-        Long saved = buff.get(key);
-        if (saved != null) {
-            return saved;
-        }
-
-        if (x >= y) {
-            if (x < end) {
-                final long a = doPyramid(x + 1, y, end, buff);
-                final long b = doPyramid(x, y + 1, end, buff);
-                final long c = doPyramid(x + 1, y + 1, end, buff);
-
-                long result = (((a + b) % 1000000007) + c) % 1000000007;
-                buff.put(key, result);
-                return result;
-            }
-            else {
-                return 1;
-            }
+    // 超级卡特兰数
+    private long S(int n) {
+        if (n == 1) {
+            return 1;
         }
         else {
-            return 0;
+            long Cn_1 = C(n - 1);
+            return (Cn_1 * 2) % MOD;
         }
     }
 
+    // 卡特兰数
+    // Fn%k = ( ((6n-3)Fn-1%k - (n-2)Fn-2%k) * 逆元(n+1) )%k
+    private long C(int n) {
+        if (n == 1) {
+            return 1;
+        }
+
+        long[] c = new long[n+1];
+//        c[0] = 1; // c[0]没用到吧？
+        c[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            long inverse = inverse(i + 1);
+            long x = ((6 * i - 3) * c[i - 1]) % MOD;
+            long y = ((i - 2) * c[i - 2]) % MOD;
+            long z = (x - y) % MOD;
+            c[i] = (z * inverse) % MOD;
+        }
+
+        return c[n];
+    }
+
+    // a关于%k的逆元为a^(k-2)%k
+    private long inverse(long a) {
+        long sum = 1;
+        for (int y = MOD - 2; y != 0; y /= 2) {
+            if ((y & 1) == 1) {
+                sum = (sum * a) % MOD;
+            }
+            a = (a * a) % MOD;
+        }
+
+        return sum % MOD;
+    }
 
 }
