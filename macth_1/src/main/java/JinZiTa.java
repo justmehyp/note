@@ -28,46 +28,24 @@ public class JinZiTa {
     public int pyramid(int n, List<Integer> k) {
         // write your code here
 
-        long result = 0;
-
-        for (Integer i : k) {
-            long s = S(n - i + 1);
-            result = (result + s) % MOD;
-        }
-
-        return (int) result;
-    }
-
-    // 超级卡特兰数
-    private long S(int n) {
-        if (n == 1) {
-            return 1;
-        }
-        else {
-            long Cn_1 = C(n - 1);
-            return (Cn_1 * 2) % MOD;
-        }
-    }
-
-    // 卡特兰数
-    // Fn%k = ( ((6n-3)Fn-1%k - (n-2)Fn-2%k) * 逆元(n+1) )%k
-    private long C(int n) {
-        if (n == 1) {
-            return 1;
-        }
-
-        long[] c = new long[n+1];
-//        c[0] = 1; // c[0]没用到吧？
+        int[] c = new int[n+1];
         c[1] = 1;
         for (int i = 2; i <= n; i++) {
-            long inverse = inverse(i + 1);
-            long x = ((6 * i - 3) * c[i - 1]) % MOD;
-            long y = ((i - 2) * c[i - 2]) % MOD;
-            long z = (x - y) % MOD;
-            c[i] = (z * inverse) % MOD;
+            c[i] = (int) (((6 * i - 3L) * c[i - 1] % MOD - (i - 2L) * c[i - 2] % MOD + MOD) % MOD * inverse(i + 1) % MOD);
         }
 
-        return c[n];
+        int[] s = new int[n+1];
+        s[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            s[i] = (int) (c[i-1] * 2L % MOD);
+        }
+
+        long result = 0;
+        for (Integer i : k) {
+            int si = s[n - i + 1];
+            result = (result + si) % MOD;
+        }
+        return (int) result;
     }
 
     // a关于%k的逆元为a^(k-2)%k
