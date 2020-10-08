@@ -4,9 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.hyp.note</groupId>
-    <artifactId>note</artifactId>
-    <packaging>pom</packaging>
+    <parent>
+        <groupId>com.hyp.note</groupId>
+        <artifactId>note</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>note-idea-plugin-dev</artifactId>
     <version>1.0</version>
 
     <properties>
@@ -14,15 +18,11 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <modules>
-        <module>jvm</module>
-        <module>idea-plugin-dev</module>
-        <module>my-interpreter</module>
-        <module>spring-resource</module>
-        <module>spring-request-response-body-advice</module>
-        <module>macth_1</module>
-        <module>drools</module>
-    </modules>
+    <dependencies>
+    </dependencies>
 
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+    </build>
 
 </project>

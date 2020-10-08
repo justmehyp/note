@@ -1,0 +1,101 @@
+Classfile /Users/hyp/code/note/out/production/labmda/IntConsumerAndConsumer/IntConsumerAndConsumerTest.class
+public class IntConsumerAndConsumer.IntConsumerAndConsumerTest
+Constant pool:
+    #2 = InvokeDynamic      #0:#59        // #0:accept:()Ljava/util/function/Consumer;
+    #3 = InvokeDynamic      #1:#62        // #1:accept:()Ljava/util/function/IntConsumer;
+    #4 = Methodref          #19.#63       // IntConsumerAndConsumer/IntConsumerAndConsumerTest.test:(Ljava/util/function/IntConsumer;)V
+    #6 = InvokeDynamic      #2:#66        // #2:accept:(Ljava/util/function/IntConsumer;)Ljava/util/function/IntConsumer;
+    #7 = InvokeDynamic      #3:#66        // #3:accept:(Ljava/util/function/IntConsumer;)Ljava/util/function/IntConsumer;
+    #8 = InterfaceMethodref #68.#69       // java/util/function/IntConsumer.accept:(I)V
+   #19 = Class              #81           // IntConsumerAndConsumer/IntConsumerAndConsumerTest
+   #27 = Utf8               LIntConsumerAndConsumer/IntConsumerAndConsumerTest;
+   #35 = Utf8               Ljava/util/function/IntConsumer;
+   #36 = Utf8               LocalVariableTypeTable
+   #37 = Utf8               Ljava/util/function/Consumer<Ljava/lang/Integer;>;
+   #39 = Utf8               (Ljava/util/function/IntConsumer;)V
+   #41 = Utf8               lambda$main$2
+   #42 = Utf8               (Ljava/util/function/IntConsumer;I)V
+   #45 = Utf8               lambda$main$1
+   #48 = Utf8               lambda$main$0
+   #52 = Utf8               IntConsumerAndConsumerTest.java
+   #54 = Utf8               BootstrapMethods
+   #55 = MethodHandle       #6:#83        // invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+   #57 = MethodHandle       #6:#85        // invokestatic IntConsumerAndConsumer/IntConsumerAndConsumerTest.lambda$main$0:(Ljava/lang/Integer;)V
+   #61 = MethodHandle       #6:#88        // invokestatic IntConsumerAndConsumer/IntConsumerAndConsumerTest.lambda$main$1:(I)V
+   #63 = NameAndType        #38:#39       // test:(Ljava/util/function/IntConsumer;)V
+   #65 = MethodHandle       #9:#8         // invokeinterface java/util/function/IntConsumer.accept:(I)V
+   #66 = NameAndType        #86:#92       // accept:(Ljava/util/function/IntConsumer;)Ljava/util/function/IntConsumer;
+   #67 = MethodHandle       #6:#93        // invokestatic IntConsumerAndConsumer/IntConsumerAndConsumerTest.lambda$main$2:(Ljava/util/function/IntConsumer;I)V
+   #68 = Class              #94           // java/util/function/IntConsumer
+   #69 = NameAndType        #86:#46       // accept:(I)V
+   #83 = Methodref          #107.#108     // java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+   #85 = Methodref          #19.#109      // IntConsumerAndConsumer/IntConsumerAndConsumerTest.lambda$main$0:(Ljava/lang/Integer;)V
+   #88 = Methodref          #19.#110      // IntConsumerAndConsumer/IntConsumerAndConsumerTest.lambda$main$1:(I)V
+   #93 = Methodref          #19.#111      // IntConsumerAndConsumer/IntConsumerAndConsumerTest.lambda$main$2:(Ljava/util/function/IntConsumer;I)V
+   #94 = Utf8               java/util/function/IntConsumer
+  #107 = Class              #112          // java/lang/invoke/LambdaMetafactory
+  #108 = NameAndType        #113:#117     // metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #109 = NameAndType        #48:#49       // lambda$main$0:(Ljava/lang/Integer;)V
+  #110 = NameAndType        #45:#46       // lambda$main$1:(I)V
+  #111 = NameAndType        #41:#42       // lambda$main$2:(Ljava/util/function/IntConsumer;I)V
+  #112 = Utf8               java/lang/invoke/LambdaMetafactory
+  #113 = Utf8               metafactory
+  #114 = Class              #119          // java/lang/invoke/MethodHandles$Lookup
+  #115 = Utf8               Lookup
+  #116 = Utf8               InnerClasses
+  #117 = Utf8               (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #118 = Class              #120          // java/lang/invoke/MethodHandles
+  #119 = Utf8               java/lang/invoke/MethodHandles$Lookup
+  #120 = Utf8               java/lang/invoke/MethodHandles
+{
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=3, args_size=1
+         0: invokedynamic #2,  0              // InvokeDynamic #0:accept:()Ljava/util/function/Consumer;
+         5: astore_1
+         6: invokedynamic #3,  0              // InvokeDynamic #1:accept:()Ljava/util/function/IntConsumer;
+        11: astore_2
+        12: aload_2
+        13: invokestatic  #4                  // Method test:(Ljava/util/function/IntConsumer;)V
+        16: aload_2
+        17: dup
+        18: invokevirtual #5                  // Method java/lang/Object.getClass:()Ljava/lang/Class;
+        21: pop
+        22: invokedynamic #6,  0              // InvokeDynamic #2:accept:(Ljava/util/function/IntConsumer;)Ljava/util/function/IntConsumer;
+        27: invokestatic  #4                  // Method test:(Ljava/util/function/IntConsumer;)V
+        30: aload_2
+        31: invokedynamic #7,  0              // InvokeDynamic #3:accept:(Ljava/util/function/IntConsumer;)Ljava/util/function/IntConsumer;
+        36: invokestatic  #4                  // Method test:(Ljava/util/function/IntConsumer;)V
+        39: return
+}
+
+InnerClasses:
+     public static final #115= #114 of #118; //Lookup=class java/lang/invoke/MethodHandles$Lookup of class java/lang/invoke/MethodHandles
+
+BootstrapMethods:
+  0: #55 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #56 (Ljava/lang/Object;)V
+      #57 invokestatic IntConsumerAndConsumer/IntConsumerAndConsumerTest.lambda$main$0:(Ljava/lang/Integer;)V
+      #58 (Ljava/lang/Integer;)V
+
+  1: #55 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #60 (I)V
+      #61 invokestatic IntConsumerAndConsumer/IntConsumerAndConsumerTest.lambda$main$1:(I)V
+      #60 (I)V
+
+  2: #55 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #60 (I)V
+      #65 invokeinterface java/util/function/IntConsumer.accept:(I)V
+      #60 (I)V
+
+  3: #55 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #60 (I)V
+      #67 invokestatic IntConsumerAndConsumer/IntConsumerAndConsumerTest.lambda$main$2:(Ljava/util/function/IntConsumer;I)V
+      #60 (I)V
